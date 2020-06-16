@@ -32,14 +32,27 @@ RegisterCommand("gpsisaretle", function(source, args, rawCommand)
 
 	print(PlayerData.job.name)
 	if PlayerData.job and PlayerData.job.name == 'police' or PlayerData.job and PlayerData.job.name == 'ambulance' then 
-	local player = GetPlayerFromServerId(args[1])
-	local ped = GetPlayerPed(player)
-	local pos = GetEntityCoords(ped, true)
-	SetNewWaypoint(pos.x, pos.y)
-	TriggerEvent('chatMessage', '', {255, 255, 255}, 'İşaretlendi ' .. args[1])
+	
+		playerid = tonumber(args[1]) 
+		local ped = GetPlayerPed(GetPlayerFromServerId(playerid))
+		local pos = GetEntityCoords(ped, true)
+	
+        SetNewWaypoint(pos.x, pos.y) 
+	
+		exports.pNotify:SendNotification({text = ' '..playerid..' numaralı gps işaretlendi', type = "success", timeout = 3000, layout = "bottomCenter", queue = "lmao"})
 
 
 end
 
 end)
 
+
+
+	RegisterCommand("gpskaldir", function(source, args, rawCommand)
+
+	SetWaypointOff()
+	exports.pNotify:SendNotification({text = "GPS kaldırıldı", type = "success", timeout = 3000, layout = "bottomCenter", queue = "lmao"})
+
+	end)
+
+	
